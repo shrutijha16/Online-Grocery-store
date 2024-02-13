@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <title>Customer Registration</title>
+    <style>
+        /* Basic styling for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        form {
+            width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #0d680d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0d680d;
+        }
+        .acknowledgment {
+            width: 400px;
+            margin: 50px auto;
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .success-message {
+            color: #155724;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<form id="registrationForm">
+    <h2>Customer Registration</h2>
+    <label for="customer_name">Customer Name:</label>
+    <input type="text" id="customer_name" name="customer_name" maxlength="50" required><br>
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" maxlength="30" required><br>
+    <label for="address">Address:</label>
+    <textarea id="address" name="address" maxlength="100" required></textarea><br>
+    <label for="contact_number">Contact Number:</label>
+    <input type="text" id="contact_number" name="contact_number" maxlength="10" required><br>
+    <input type="submit" value="Register">
+</form>
+
+<div id="acknowledgment" class="acknowledgment" style="display: none;">
+    <h2 class="success-message">Customer Registration successful.</h2>
+    <p><strong>Customer ID:</strong> <span id="customer_id"></span></p>
+    <p><strong>Customer Name:</strong> <span id="registered_customer_name"></span></p>
+    <p><strong>Email:</strong> <span id="registered_email"></span></p>
+</div>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+        
+        // Get form values
+        var customerName = document.getElementById("customer_name").value;
+        var email = document.getElementById("email").value;
+        
+        // Generate random customer ID (for demonstration purposes)
+        var customerId = "CUST" + Math.floor(Math.random() * 10000);
+        
+        // Display acknowledgment screen
+        document.getElementById("acknowledgment").style.display = "block";
+        document.getElementById("customer_id").textContent = customerId;
+        document.getElementById("registered_customer_name").textContent = customerName;
+        document.getElementById("registered_email").textContent = email;
+    });
+</script>
+
+</body>
+</html>
