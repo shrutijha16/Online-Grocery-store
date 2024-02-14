@@ -3,7 +3,6 @@
 <head> 
     <title>Customer Registration</title>
     <style>
-        /* Basic styling for demonstration purposes */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -55,6 +54,10 @@
             color: #155724;
             font-weight: bold;
         }
+        .error-message {
+            color: #f00920;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -63,14 +66,24 @@
     <h2>Customer Registration</h2>
     <label for="customer_name">Customer Name:</label>
     <input type="text" id="customer_name" name="customer_name" maxlength="50" required><br>
+    <div id="customerNameError" class="error-message"></div>
+
     <label for="email">Email:</label>
     <input type="text" id="email" name="email" required><br>
+    <div id="emailError" class="error-message"></div>
+
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" maxlength="30" required><br>
+    <div id="passwordError" class="error-message"></div>
+
     <label for="address">Address:</label>
     <textarea id="address" name="address" maxlength="100" required></textarea><br>
+    <div id="addressError" class="error-message"></div>
+
     <label for="contact_number">Contact Number:</label>
     <input type="text" id="contact_number" name="contact_number" maxlength="10" required><br>
+    <div id="contactNumberError" class="error-message"></div>
+
     <input type="submit" value="Register">
 </form>
 
@@ -88,6 +101,60 @@
         // Get form values
         var customerName = document.getElementById("customer_name").value;
         var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var address = document.getElementById("address").value;
+        var contactNumber = document.getElementById("contact_number").value;
+        
+        // Regular expressions for validation
+        var customerNamePattern = /^[a-zA-Z\s]+$/;
+        var emailPattern = /\S+@\S+\.\S+/; // Email pattern
+        var passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
+        var contactNumberPattern = /^\d+$/; // Contact number pattern
+        
+        // Error message elements
+        var customerNameError = document.getElementById("customerNameError");
+        var emailError = document.getElementById("emailError");
+        var passwordError = document.getElementById("passwordError");
+        var addressError = document.getElementById("addressError");
+        var contactNumberError = document.getElementById("contactNumberError");
+
+        // Clear previous error messages
+        customerNameError.textContent = "";
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        addressError.textContent = "";
+        contactNumberError.textContent = "";
+
+        
+
+        // Validate customer name
+        if (!customerNamePattern.test(customerName)) {
+            customerNameError.textContent = "Name must have alphabets only";
+            return; // Exit the function to prevent further processing
+        }
+
+        // Validate email
+        if (!emailPattern.test(email)) {
+            emailError.textContent = "Email is not valid";
+            return; // Exit the function to prevent further processing
+        }
+        // Validate password
+        if (!passwordPattern.test(password)) {
+            passwordError.textContent = "Password must be at least 5 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character";
+            return; // Exit the function to prevent further processing
+        }
+
+        // Validate address
+        if (address.trim() === "") {
+            addressError.textContent = "Address cannot be blank";
+            return; // Exit the function to prevent further processing
+        }
+
+        // Validate contact number
+        if (!contactNumberPattern.test(contactNumber)) {
+            contactNumberError.textContent = "Contact number must contain only digits";
+            return; // Exit the function to prevent further processing
+        }
         
         // Generate random customer ID (for demonstration purposes)
         var customerId = "CUST" + Math.floor(Math.random() * 10000);
