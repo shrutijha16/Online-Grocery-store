@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: #0d680d;
+      color: white;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .container {
+      margin-top: 80px; /* Adjust according to your navbar height */
+      padding: 20px;
+      text-align: center;
+    }
+
+    .details-container {
+      border: 1px solid #ccc;
+      padding: 20px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    #buttons {
+      margin-top: 20px;
+    }
+
+    #updateButton,
+    #saveButton {
+      padding: 10px 20px;
+      margin-right: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div>
+      <a href="home.html">Main Menu</a>
+      <a href="myprofile.html">My Profile</a>
+      <a href="cart.html">Cart</a>
+    </div>
+    <div>
+      <a href="#">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Welcome, <span id="customerName"></span>!</h2>
+    
+    <div class="details-container">
+      <h3>Customer Details</h3>
+      <div id="profileDetails">
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Password:</strong> <span id="password"></span></p>
+        <p><strong>Address:</strong> <span id="address"></span></p>
+        <p><strong>Contact Number:</strong> <span id="contactNumber"></span></p>
+        <p><strong>Customer ID:</strong> <span id="customerId"></span></p>
+      </div>
+
+      <div id="buttons">
+        <button id="updateButton">Update</button>
+        <button id="saveButton" class="hidden">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample customer data
+    var customerData = {
+      name: "John Doe",
+      email: "john@example.com",
+      password: "********",
+      address: "123 Main St, City, Country",
+      contactNumber: "1234567890",
+      customerId: "123456" // Assuming customer ID is available
+    };
+
+    // Function to display customer details
+    function displayCustomerDetails() {
+      document.getElementById('customerName').textContent = customerData.name;
+      document.getElementById('email').textContent = customerData.email;
+      document.getElementById('password').textContent = customerData.password;
+      document.getElementById('address').textContent = customerData.address;
+      document.getElementById('contactNumber').textContent = customerData.contactNumber;
+      document.getElementById('customerId').textContent = customerData.customerId;
+    }
+
+    // Function to enable editing of customer details
+    function enableEdit() {
+      var profileDetails = document.getElementById('profileDetails');
+      var spans = profileDetails.getElementsByTagName('span');
+      for (var i = 0; i < spans.length; i++) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('value', spans[i].textContent);
+        spans[i].textContent = '';
+        spans[i].appendChild(input);
+      }
+      document.getElementById('updateButton').classList.add('hidden');
+      document.getElementById('saveButton').classList.remove('hidden');
+    }
+
+    // Function to save changes to customer details
+    function saveChanges() {
+      var profileDetails = document.getElementById('profileDetails');
+      var inputs = profileDetails.getElementsByTagName('input');
+      for (var i = 0; i < inputs.length; i++) {
+        var span = document.createElement('span');
+        span.textContent = inputs[i].value;
+        inputs[i].parentNode.replaceChild(span, inputs[i]);
+      }
+      document.getElementById('updateButton').classList.remove('hidden');
+      document.getElementById('saveButton').classList.add('hidden');
+
+      // Update customerData object with new values
+      customerData.email = document.getElementById('email').textContent;
+      customerData.password = document.getElementById('password').textContent;
+      customerData.address = document.getElementById('address').textContent;
+      customerData.contactNumber = document.getElementById('contactNumber').textContent;
+
+      // Call function to save changes to the database (not implemented here)
+    }
+
+    // Event listeners for buttons
+    document.getElementById('updateButton').addEventListener('click', enableEdit);
+    document.getElementById('saveButton').addEventListener('click', saveChanges);
+
+    // Display initial customer details
+    displayCustomerDetails();
+  </script>
+</body>
+</html>

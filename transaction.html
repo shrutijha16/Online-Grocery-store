@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #efe70f;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        nav {
+            background-color: #0d680d;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .pricing-details {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .invoice {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Style for buttons */
+        button {
+            padding: 10px 20px;
+            background-color: #0d680d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0d680d;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Transaction</h1>
+</header>
+
+<nav>
+    <a href="home.html">Main Menu</a>
+    <a href="myprofile.html">My Profile</a>
+    <a href="cart.html">Cart</a>
+    <a href="#">Logout</a>
+</nav>
+
+<div class="container">
+    <h2>Select Payment Method</h2>
+    <div class="payment-method">
+        <input type="radio" id="cod" name="payment" value="COD">
+        <label for="cod">Cash On Delivery</label><br>
+        <input type="radio" id="upi" name="payment" value="UPI">
+        <label for="upi">UPI</label><br>
+        <input type="radio" id="creditCard" name="payment" value="Credit Card">
+        <label for="creditCard">Credit Card</label><br>
+        <input type="radio" id="debitCard" name="payment" value="Debit Card">
+        <label for="debitCard">Debit Card</label><br>
+        <input type="radio" id="netBanking" name="payment" value="Net Banking">
+        <label for="netBanking">Net Banking</label><br>
+        <!-- Add more payment options if needed -->
+    </div>
+
+    <div class="pricing-details">
+        <h2>Pricing Details</h2>
+        <p>Total Product Price: Rs 500</p>
+        <p>Total Discount: Rs 50</p>
+        <p>Extra Charges: Rs 20</p>
+        <p>Order Total: Rs 470</p>
+    </div>
+
+    <button onclick="proceedToBuy()">Proceed to Buy</button>
+</div>
+
+<div class="container invoice" id="invoice" style="display: none;">
+    <h2>Invoice</h2>
+    <p>Transaction ID: #123456</p>
+    <p>Customer ID: #7890</p>
+    <p>All Product IDs: #001, #002</p>
+    <p>Total Amount: Rs 470</p>
+    <p>Number of Items: 2</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Online Grocery Store. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // Function to proceed to buy and display invoice
+    function proceedToBuy() {
+        var paymentMethod = document.querySelector('input[name="payment"]:checked');
+        if (!paymentMethod) {
+            alert('Please select a payment method!');
+            return;
+        }
+
+        var invoiceDiv = document.getElementById('invoice');
+        invoiceDiv.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

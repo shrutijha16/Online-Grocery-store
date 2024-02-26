@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #efe70f;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        nav {
+            background-color: #0d680d;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+        }
+
+        #cartItems {
+            flex: 1;
+        }
+
+        #summary {
+            flex: 1;
+        }
+
+        /* Style for cart items */
+        .cart-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .cart-item p {
+            margin: 0;
+        }
+
+        /* Style for summary */
+        #summary {
+            margin-left: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cart</h1>
+    </header>
+
+    <nav>
+        <a href="home.html">Main Menu</a>
+        <a href="myprofile.html">My Profile</a>
+        <a href="cart.html">Cart</a>
+        <a href="#">Logout</a>
+    </nav>
+
+    <div class="container">
+        <div id="cartItems">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div id="summary">
+            <!-- Cart summary will be displayed here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Online Grocery Store. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Function to display cart items
+        function displayCartItems() {
+            var cartItemsDiv = document.getElementById('cartItems');
+            var summaryDiv = document.getElementById('summary');
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                // If cart is empty, display a message and a link to view products
+                cartItemsDiv.innerHTML = '<p>Your cart is empty</p>';
+                summaryDiv.innerHTML = '<p><a href="#">View Products</a></p>';
+            } else {
+                // If cart has items, display each item and calculate total amount
+                var totalAmount = 0;
+                cartItemsDiv.innerHTML = '';
+                cart.forEach(function(item, index) {
+                    var itemDiv = document.createElement('div');
+                    itemDiv.classList.add('cart-item');
+                    itemDiv.innerHTML = '<p>Name: ' + item.name + '</p><p>Price: Rs ' + item.price + '</p><button onclick="removeFromCart(' + index + ')">Delete</button>';
+                    cartItemsDiv.appendChild(itemDiv);
+                    totalAmount += item.price;
+                });
+                // Display total amount in the summary
+                summaryDiv.innerHTML = '<h2>Summary</h2><p>Total Amount: Rs ' + totalAmount + '</p><button onclick="checkout()">Checkout</button>';
+            }
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(index) {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1); // Remove item from array
+            localStorage.setItem('cart', JSON.stringify(cart)); // Update cart in localStorage
+            displayCartItems(); // Refresh cart display
+        }
+
+        // Function to handle checkout
+        function checkout() {
+            // Redirect to transaction page
+            window.location.href = 'transaction.html';
+        }
+
+        // Display cart items when the page loads
+        displayCartItems();
+    </script>
+</body>
+</html>
